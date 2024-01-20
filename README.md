@@ -43,3 +43,25 @@ npm i @nextui-org/react framer-motion
 ```
 
 > Configure NextUIProvider at the root of `discuss app` application.
+
+### Configure prisma into this project
+
+```bash
+npm i prisma
+
+```
+
+`Initialize prisma into this project`
+
+```bash
+npx prisma init --datasource-provider sqlite
+```
+
+> After declare all the model in schema.prisma file you need to create table on database, applying this prisma migrate command below:
+
+```bash
+npx prisma migrate dev
+
+```
+
+> After that command, it will want a name for complete the migration and generate the database table.
