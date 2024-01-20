@@ -65,3 +65,21 @@ npx prisma migrate dev
 ```
 
 > After that command, it will want a name for complete the migration and generate the database table.
+
+### Authentication system setup called OAuth
+
+> install this below package
+
+```bash
+npm i --save-exact @auth/core@0.18.1 @auth/prisma-adapter@1.0.6 next-auth@5.0.0-beta.3
+```
+
+> Auth Setup `create an OAuth app and generate a client_id and client_secret` > `https://github.com/settings/applications/new`
+
+> Include this below auth_secret, github_client_id, github_client_secret into the .env.local file
+
+```bash
+GITHUB_CLIENT_ID="<generate client id from github>"
+GITHUB_CLIENT_SECRET="<generated client secret from github>"
+AUTH_SECRET="<Any random long string>"
+```
