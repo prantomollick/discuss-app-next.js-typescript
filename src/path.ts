@@ -1,4 +1,11 @@
-export const path = {
+interface Path {
+  home(): string;
+  topicShow(topicSlug: string): string;
+  postCreate(topicSlug: string): string;
+  postShow(topicSlug: string, postId: string): string;
+}
+
+export const path: Path = {
   home() {
     return "/";
   },
