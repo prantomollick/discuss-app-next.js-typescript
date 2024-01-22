@@ -14,8 +14,6 @@ import { useSession } from "next-auth/react";
 function HeaderAuth() {
   const { data, status } = useSession();
 
-  console.log(data, status);
-
   let authContent: React.ReactNode;
 
   if (status === "loading") {
