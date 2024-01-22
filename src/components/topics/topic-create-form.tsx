@@ -31,12 +31,19 @@ function TopicCreateForm() {
               label="Name"
               labelPlacement="outside"
               placeholder="Name"
+              color={!!formState.errors.name ? "warning" : "default"}
+              isInvalid={!!formState.errors.name}
+              errorMessage={formState.errors.name?.join(", ")}
             />
+
             <Textarea
               name="description"
               label="Description"
               labelPlacement="outside"
               placeholder="Description"
+              color={!!formState.errors.description ? "danger" : "default"}
+              isInvalid={!!formState.errors.description}
+              errorMessage={formState.errors.description?.join(", ")}
             />
             <Button type="submit">Submit</Button>
           </div>
