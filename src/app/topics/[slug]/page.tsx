@@ -8,11 +8,11 @@ interface Props {
 }
 
 export default async function TopicShowPage({ params }: Props) {
-  const topic = await prisma.topic.findUnique({
+  const topic = (await prisma.topic.findUnique({
     where: {
       slug: params.slug.toLowerCase()
     }
-  });
+  })) as Topic;
 
   return (
     <div className="grid grid-cols-4 gap-4 p-4">

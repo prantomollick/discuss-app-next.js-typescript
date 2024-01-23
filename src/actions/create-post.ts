@@ -2,9 +2,11 @@
 
 import { auth } from "@/auth";
 import { CreatePostSchema } from "@/schema";
-import { Topic } from "@prisma/client";
+import { Post, Topic } from "@prisma/client";
 import { prisma } from "@/db";
 import { revalidatePath } from "next/cache";
+import { path } from "@/path";
+import { redirect } from "next/navigation";
 
 interface CreatePostFormState {
   errors: {
@@ -48,14 +50,35 @@ export async function createPost(
     };
   }
 
-  const post = await prisma.post.create({
-    data: {
-      title: validation.data.title,
-      content: validation.data.content,
-      topicId: topic.id,
-      userId: session.user.id
+  let post: Post;
+
+  try {
+    post = await prisma.post.create({
+      data: {
+        title: validation.data.title,
+        content: validation.data.content,
+        topicId: topic.id,
+        userId: session.user.id
+      }
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        errors: {
+          _form: [error.message]
+        }
+      };
+    } else {
+      return {
+        errors: {
+          _form: ["Failed to create post!"]
+        }
+      };
     }
-  });
+  }
+
+  revalidatePath(path.topicShow(topic.slug));
+  redirect(path.postShow(topic.slug, post.id));
 
   return {
     errors: {}
