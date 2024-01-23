@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/db";
 import { path } from "@/path";
 import { revalidatePath } from "next/cache";
+import delay from "delay";
 
 export interface CreateTopicFormState {
   errors: {
@@ -19,6 +20,7 @@ export async function createTopic(
   formState: CreateTopicFormState,
   formData: FormData
 ): Promise<CreateTopicFormState> {
+  await delay(2000);
   //TODO: revalidate the homepage after creating a topic
 
   const name = formData.get("name");
