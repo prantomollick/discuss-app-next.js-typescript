@@ -1,10 +1,12 @@
 "use server";
+import { auth } from "@/auth";
 import { createTopicSchema } from "@/schema";
 
 export interface CreateTopicFormState {
   errors: {
     name?: string[];
     description?: string[];
+    _form?: string[];
   };
 }
 
@@ -25,6 +27,15 @@ export async function createTopic(
     };
   }
 
+  const session = await auth();
+
+  if (!session || !session.user) {
+    return {
+      errors: {
+        _form: ["You must be signed in to do this."]
+      }
+    };
+  }
   return {
     errors: {}
   };

@@ -11,6 +11,7 @@ import React from "react";
 
 import * as actions from "@/actions";
 import { useFormState } from "react-dom";
+import Link from "next/link";
 
 function TopicCreateForm() {
   const [formState, action] = useFormState(actions.createTopic, {
@@ -45,6 +46,17 @@ function TopicCreateForm() {
               isInvalid={!!formState.errors.description}
               errorMessage={formState.errors.description?.join(", ")}
             />
+            {formState.errors._form ? (
+              <div className="p-1 bg-red-200 border border-red-400">
+                <Link
+                  className="text-blue-500 hover:text-blue-700"
+                  href={"/api/auth/signin"}
+                >
+                  Sign In&nbsp;
+                </Link>
+                {formState.errors._form?.join(", ")}
+              </div>
+            ) : null}
             <Button type="submit">Submit</Button>
           </div>
         </form>
