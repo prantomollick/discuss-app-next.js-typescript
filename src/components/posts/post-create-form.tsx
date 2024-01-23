@@ -11,11 +11,20 @@ import React from "react";
 import FormButton from "../ui/form-button";
 import { useFormState } from "react-dom";
 import * as actions from "@/actions";
+import Link from "next/link";
+import { Topic } from "@prisma/client";
 
-function PostCreateForm() {
-  const [formState, action] = useFormState(actions.createPost, {
-    errors: {}
-  });
+interface PostCreateFormProps {
+  topic: Topic;
+}
+
+function PostCreateForm({ topic }: PostCreateFormProps) {
+  const [formState, action] = useFormState(
+    actions.createPost.bind(null, topic),
+    {
+      errors: {}
+    }
+  );
 
   return (
     <Popover placement="left">
@@ -43,6 +52,18 @@ function PostCreateForm() {
               isInvalid={!!formState.errors.content}
               errorMessage={formState.errors.content?.join(", ")}
             />
+
+            {formState.errors._form ? (
+              <div className="p-2 bg-red-200 border border-red-400">
+                <Link
+                  className="text-blue-500 hover:text-blue-700"
+                  href={"/api/auth/signin"}
+                >
+                  Sign In&nbsp;
+                </Link>
+                {formState.errors._form?.join(", ")}
+              </div>
+            ) : null}
 
             <FormButton>Create Post</FormButton>
           </div>

@@ -48,7 +48,7 @@ function TopicCreateForm() {
               errorMessage={formState.errors.description?.join(", ")}
             />
             {formState.errors._form ? (
-              <div className="p-1 bg-red-200 border border-red-400">
+              <div className="p-2 bg-red-200 border border-red-400">
                 <Link
                   className="text-blue-500 hover:text-blue-700"
                   href={"/api/auth/signin"}
