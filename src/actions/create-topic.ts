@@ -1,12 +1,11 @@
 "use server";
 import { auth } from "@/auth";
-import { createTopicSchema } from "@/schema";
-import { type Topic } from "@prisma/client";
-import { redirect } from "next/navigation";
 import { prisma } from "@/db";
 import { path } from "@/path";
+import { createTopicSchema } from "@/schema";
+import { type Topic } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import delay from "delay";
+import { redirect } from "next/navigation";
 
 export interface CreateTopicFormState {
   errors: {
@@ -20,7 +19,6 @@ export async function createTopic(
   formState: CreateTopicFormState,
   formData: FormData
 ): Promise<CreateTopicFormState> {
-  await delay(2000);
   //TODO: revalidate the homepage after creating a topic
 
   const name = formData.get("name");
