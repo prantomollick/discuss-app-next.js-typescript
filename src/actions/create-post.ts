@@ -79,8 +79,4 @@ export async function createPost(
 
   revalidatePath(path.topicShow(topic.slug));
   redirect(path.postShow(topic.slug, post.id));
-
-  return {
-    errors: {}
-  };
 }
